@@ -29,7 +29,6 @@ public class ProductController : ControllerBase
         }
     }
 
-    // GET aqui embaixo — sua vez
     [HttpGet]
     public async Task<IActionResult> ListarProdutos()
     {
@@ -37,7 +36,6 @@ public class ProductController : ControllerBase
         return Ok(products);
     }
 
-    // DELETE aqui embaixo — sua vez
     [HttpDelete("{id}")]
     public async Task<IActionResult> ExcluirProduto(int id)
     {
