@@ -4,7 +4,7 @@ namespace Marketplace.API.Interfaces;
 
 public interface IProductRepository
 {
-    void AddProduct(Product product);
-    List<Product> GetAllProducts();
-    void DeleteProduct(int id);
+    Task AddProductAsync(Product product);
+    Task<List<Product>> GetAllProductsAsync();
+    Task<bool> DeleteProductAsync(int id);
 }

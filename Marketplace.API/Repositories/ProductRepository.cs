@@ -1,6 +1,7 @@
 ﻿using Marketplace.API.Interfaces;
 using Marketplace.API.Data;
 using Marketplace.API.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Marketplace.API.Repositories;
 
@@ -13,22 +14,28 @@ public class ProductRepository : IProductRepository
         _context = context;
     }
 
-    public void AddProduct(Product product)
-        {
-            _context.Products.Add(product);
-            _context.SaveChanges();
-        }
-    public List<Product> GetAllProducts()
+    public async Task AddProductAsync(Product product)
     {
-        return _context.Products.ToList();
+        _context.Products.Add(product);
+        await _context.SaveChangesAsync();
     }
-    public void DeleteProduct(int id)
+    public async Task<List<Product>> GetAllProductsAsync()
     {
-        var product = _context.Products.Find(id);
+        return await _context.Products.ToListAsync();
+    }
+    public async Task<bool> DeleteProductAsync(int id)
+    {
+        var product = await _context.Products.FindAsync(id);
+        
         if (product != null)
         {
             _context.Products.Remove(product);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
+            return true;
+        } 
+        else 
+        {
+            return false;
         }
     }
 
