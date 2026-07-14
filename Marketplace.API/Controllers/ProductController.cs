@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Marketplace.API.Models;
 using Marketplace.API.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Marketplace.API.Controllers;
 
@@ -16,6 +17,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize]
     public async Task<IActionResult> CriarProduto([FromBody] Product product)
     {
         try
@@ -37,6 +39,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize]
     public async Task<IActionResult> ExcluirProduto(int id)
     {
         var deleted = await _productService.DeleteProductAsync(id);
